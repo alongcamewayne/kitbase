@@ -15,6 +15,7 @@
 	},
 	"dependencies": {
 		"drizzle-orm": "^0.29.3",
+		"lucia": "^2.7.6",
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
