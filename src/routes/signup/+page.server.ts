@@ -1,5 +1,4 @@
 import type { Actions, PageServerLoad } from './$types';
-import { lucia } from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { createId } from '$lib/utils';
@@ -7,6 +6,7 @@ import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server/db';
 import { userTable } from '$lib/server/db/schema';
 import type { SqliteError } from 'better-sqlite3';
+import { createUserSession } from '$lib/server/auth/utils';
 
 // todo: use drizzle-zod
 const form = z.object({
@@ -47,13 +47,7 @@ export const actions: Actions = {
 			return fail(400, { message: 'something went wrong' });
 		}
 
-		const session = await lucia.createSession(userId, {});
-		const sessionCookie = lucia.createSessionCookie(session.id);
-		cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '.',
-			...sessionCookie.attributes,
-		});
-
+		await createUserSession({ userId, cookies });
 		return redirect(302, '/');
 	},
 };
