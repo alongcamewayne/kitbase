@@ -10,3 +10,5 @@ CREATE TABLE `user` (
 	`username` text NOT NULL,
 	`password` text NOT NULL
 );
+--> statement-breakpoint
+CREATE UNIQUE INDEX `username_idx` ON `user` (`username`);
