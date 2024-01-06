@@ -22,7 +22,7 @@
 		bind:value={password}
 		required /><br />
 
-	<button disabled={!username || !password}>Continue</button>
+	<button type="submit" disabled={!username || !password}>Continue</button>
 </form>
 
 <a href="/signup">Create account</a>

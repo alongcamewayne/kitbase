@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "125993da-512a-437a-b1b9-9ffc3661ffd7",
+  "id": "20060c1d-373f-4756-a8e7-3a7b9d7afa6b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "user_session": {
@@ -73,7 +73,15 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "username_idx": {
+          "name": "username_idx",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

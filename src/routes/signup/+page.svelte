@@ -38,7 +38,7 @@
 		required /><br />
 	{#if mismatch}<p>passwords don't match</p>{/if}
 
-	<button disabled={!passwords[1] || mismatch}>Continue</button>
+	<button type="submit" disabled={!passwords[1] || mismatch}>Continue</button>
 </form>
 
 <a href="/login">login</a>

@@ -5,7 +5,7 @@ import {
 	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
 
-export const userTable = sqliteTable(
+export const users = sqliteTable(
 	'user',
 	{
 		id: text('id').notNull().primaryKey(),
@@ -19,10 +19,10 @@ export const userTable = sqliteTable(
 	}
 );
 
-export const sessionTable = sqliteTable('user_session', {
+export const sessions = sqliteTable('user_session', {
 	id: text('id').notNull().primaryKey(),
 	userId: text('user_id')
 		.notNull()
-		.references(() => userTable.id),
+		.references(() => users.id),
 	expiresAt: integer('expires_at').notNull(),
 });

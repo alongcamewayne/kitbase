@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server/db';
-import { userTable } from '$lib/server/db/schema';
+import { users } from '$lib/server/db/schema';
 import { createUserSession } from '$lib/server/auth/utils';
 import { createId } from '$lib/utils';
 
@@ -36,7 +36,7 @@ export const actions: Actions = {
 		const password = await new Argon2id().hash(unhashedPassword);
 
 		try {
-			await db.insert(userTable).values({ id: userId, username, password });
+			await db.insert(users).values({ id: userId, username, password });
 		} catch (error: unknown) {
 			const sqliteError = error as SqliteError;
 			if (

@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
 import { eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
-import { userTable } from '$lib/server/db/schema';
+import { users } from '$lib/server/db/schema';
 import { createUserSession } from '$lib/server/auth/utils';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -18,8 +18,8 @@ export const actions: Actions = {
 		const password = String(formData.get('password') || '');
 
 		// get user from db
-		const user = await db.query.userTable.findFirst({
-			where: eq(userTable.username, username),
+		const user = await db.query.users.findFirst({
+			where: eq(users.username, username),
 		});
 
 		if (!user) return fail(400, { message: 'username not found' });
