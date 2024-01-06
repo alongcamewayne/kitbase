@@ -24,11 +24,8 @@ export const actions: Actions = {
 
 		if (!user) return fail(400, { message: 'username not found' });
 
-		const isValidPassword = await new Argon2id().verify(
-			user.password,
-			password
-		);
-		if (!isValidPassword) {
+		const validLogin = await new Argon2id().verify(user.password, password);
+		if (!validLogin) {
 			return fail(400, { message: 'incorrect username or password' });
 		}
 

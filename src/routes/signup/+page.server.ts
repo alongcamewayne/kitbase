@@ -1,12 +1,12 @@
 import type { Actions, PageServerLoad } from './$types';
+import type { SqliteError } from 'better-sqlite3';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
-import { createId } from '$lib/utils';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server/db';
 import { userTable } from '$lib/server/db/schema';
-import type { SqliteError } from 'better-sqlite3';
 import { createUserSession } from '$lib/server/auth/utils';
+import { createId } from '$lib/utils';
 
 // todo: use drizzle-zod
 const form = z.object({
@@ -26,8 +26,10 @@ export const actions: Actions = {
 			username: formData.get('username'),
 			password: formData.get('password'),
 		});
-		if (!result.success)
+
+		if (!result.success) {
 			return fail(400, { message: result.error.errors[0].message });
+		}
 
 		const { username, password: unhashedPassword } = result.data;
 		const userId = createId('user');
