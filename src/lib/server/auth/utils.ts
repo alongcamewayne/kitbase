@@ -28,10 +28,12 @@ export async function createUser({
 		const result = await z
 			.object({
 				id: z.string().startsWith('user_').optional().default(createId('user')),
-				username: z.string().min(3),
+				username: z
+					.string()
+					.min(3, { message: 'username must be at least 3 characters long' }),
 				password: z
 					.string()
-					.min(7)
+					.min(7, { message: 'password must be at least 7 characters long' })
 					.transform(async (pw) => await new Argon2id().hash(pw)),
 			})
 			.parseAsync({ username, password });
