@@ -8,25 +8,38 @@
 	export let form: ActionData;
 </script>
 
-<h1>Sign in</h1>
+<div class="flex min-h-[100dvh] items-center justify-center bg-zinc-300">
+	<div
+		class="flex flex-col items-center border bg-white p-10 shadow-lg shadow-zinc-400/50">
+		<h1>Sign in</h1>
 
-<form method="post" use:enhance>
-	<label for="username">Username</label>
-	<input name="username" id="username" bind:value={username} required /><br />
+		<form method="post" use:enhance class="my-2 flex min-w-64 flex-col gap-2">
+			<div class="flex flex-col">
+				<label for="username" class="text-sm">Username</label>
+				<input name="username" id="username" bind:value={username} required />
+			</div>
 
-	<label for="password">Password</label>
-	<input
-		type="password"
-		name="password"
-		id="password"
-		bind:value={password}
-		required /><br />
+			<div class="flex flex-col">
+				<label for="password" class="text-sm">Password</label>
+				<input
+					type="password"
+					name="password"
+					id="password"
+					bind:value={password}
+					required />
+			</div>
 
-	<button type="submit" disabled={!username || !password}>Continue</button>
-</form>
+			<button
+				type="submit"
+				disabled={!username || !password}
+				class="w-full bg-zinc-800 py-2 text-center text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-zinc-500"
+				>Sign in</button>
+		</form>
 
-<a href="/signup">Create account</a>
+		<a href="/signup" class="text-sm">Create account</a>
 
-{#if form?.message}
-	<p>{form.message}</p>
-{/if}
+		{#if form?.message}
+			<p>{form.message}</p>
+		{/if}
+	</div>
+</div>
